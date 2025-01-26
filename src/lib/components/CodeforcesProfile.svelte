@@ -1,6 +1,6 @@
 <script>
 	import { userRating, fetchUserData, maxRating } from '../stores/codeforcesStore';
-	let userInput = $state('Shriganesh83');
+	let userInput = $state('');
 	// write the routes here for left navigation.
 	// on having userInput, I want to call the API and get response, need to have it
 </script>
