@@ -23,6 +23,9 @@
 		"@sveltejs/adapter-vercel": "^5.5.2",
 		"@sveltejs/kit": "^2.0.0",
 		"@sveltejs/vite-plugin-svelte": "^4.0.0",
+		"@tailwindcss/container-queries": "^0.1.1",
+		"@tailwindcss/forms": "^0.5.10",
+		"@tailwindcss/typography": "^0.5.16",
 		"autoprefixer": "^10.4.20",
 		"bits-ui": "^1.0.0-next.78",
 		"clsx": "^2.1.1",
@@ -31,6 +34,7 @@
 		"eslint-config-prettier": "^10.0.1",
 		"eslint-plugin-svelte": "^2.46.1",
 		"globals": "^15.14.0",
+		"lucide-svelte": "^0.474.0",
 		"prettier": "^3.4.2",
 		"prettier-plugin-svelte": "^3.3.3",
 		"prettier-plugin-tailwindcss": "^0.6.10",
@@ -51,7 +55,6 @@
 		"@oslojs/crypto": "^1.0.1",
 		"@oslojs/encoding": "^1.1.0",
 		"drizzle-orm": "^0.38.4",
-		"lucide-svelte": "^0.474.0",
 		"mode-watcher": "^0.5.1"
 	}
 }
