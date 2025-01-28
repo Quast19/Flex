@@ -1,5 +1,5 @@
 import { writable, derived } from 'svelte/store';
-import type { UserInfoResponse} from '../components/codeforcesProfile.types';
+import type { UserInfoResponse} from '../components/codeforcesProfiles/codeforcesProfile.types';
 
 // Declare stores
 export const apiResult = writable<UserInfoResponse | null>(null);

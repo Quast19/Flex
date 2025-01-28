@@ -1,5 +1,5 @@
 <script>
-	import { userRating, fetchUserData, maxRating } from '../stores/codeforcesStore';
+	import { userRating, fetchUserData, maxRating } from '../../stores/codeforcesStore';
 	let userInput = $state('');
 	// write the routes here for left navigation.
 	// on having userInput, I want to call the API and get response, need to have it
@@ -31,7 +31,7 @@
 	<p>No max rating available.</p>
 {/if}
 
-<style lang="css">
+<style lang="postcss">
 	.inputHandle {
 		width: 400px;
 	}
