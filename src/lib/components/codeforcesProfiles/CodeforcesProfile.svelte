@@ -5,34 +5,48 @@
 	// on having userInput, I want to call the API and get response, need to have it
 </script>
 
-<input
-	class="inputHandle"
-	type="text"
-	bind:value={userInput}
-	placeholder="Enter Codeforces handle here"
-/>
-<p>Current Input: {userInput}</p>
-<button
-	onclick={() => {
-		fetchUserData(userInput);
-	}}>Submit</button
->
-<h2>User Rating</h2>
+<div class="default">
+	<h1>Codeforces Profile</h1>
+	<input
+		class="inputHandle"
+		type="text"
+		bind:value={userInput}
+		placeholder="Enter Codeforces handle here"
+	/>
+	<p>Current Input: {userInput}</p>
+	<button
+		class="submitButton"
+		onclick={() => {
+			fetchUserData(userInput);
+		}}>Submit</button
+	>
+	<h2>User Rating</h2>
 
-{#if $userRating !== null}
-	<p>Rating: {$userRating}</p>
-{:else}
-	<p>No rating available.</p>
-{/if}
+	{#if $userRating !== null}
+		<p>Rating: {$userRating}</p>
+	{:else}
+		<p>No rating available.</p>
+	{/if}
 
-{#if $maxRating !== null}
-	<p>Rating: {$maxRating}</p>
-{:else}
-	<p>No max rating available.</p>
-{/if}
+	{#if $maxRating !== null}
+		<p>Rating: {$maxRating}</p>
+	{:else}
+		<p>No max rating available.</p>
+	{/if}
+</div>
 
 <style lang="postcss">
 	.inputHandle {
 		width: 400px;
+		border: white 1px solid;
+		background-color: black;
+	}
+	.default {
+		color: white;
+	}
+	.submitButton {
+		width: 200px;
+		background-color: black;
+		border: white 1px solid;
 	}
 </style>
