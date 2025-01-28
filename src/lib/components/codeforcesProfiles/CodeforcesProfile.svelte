@@ -38,15 +38,5 @@
 <style lang="postcss">
 	.inputHandle {
 		width: 400px;
-		border: white 1px solid;
-		background-color: black;
-	}
-	.default {
-		color: white;
-	}
-	.submitButton {
-		width: 200px;
-		background-color: black;
-		border: white 1px solid;
 	}
 </style>
