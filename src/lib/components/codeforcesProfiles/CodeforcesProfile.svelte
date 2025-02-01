@@ -35,22 +35,6 @@
 	// on having userInput, I want to call the API and get response, need to have it
 </script>
 
-<div>
-	<h2>User Rating</h2>
-
-	{#if $userRating !== null}
-		<p>Rating: {$userRating}</p>
-	{:else}
-		<p>No rating available.</p>
-	{/if}
-
-	{#if $maxRating !== null}
-		<p>Rating: {$maxRating}</p>
-	{:else}
-		<p>No max rating available.</p>
-	{/if}
-</div>
-
 <Card.Root class="w-[350px]">
 	<Card.Header>
 		<Card.Title>Codeforces Profile</Card.Title>
@@ -63,24 +47,18 @@
 					<Label for="name">Handle</Label>
 					<Input bind:value={userInput} id="name" placeholder="Codeforces Handle" />
 				</div>
-				<!-- <div class="flex flex-col space-y-1.5">
-					<Label for="framework">Framework</Label>
-					<Select.Root type="single" bind:value={framework}>
-						<Select.Trigger id="framework">
-							{selectedFramework}
-						</Select.Trigger>
-						<Select.Content>
-							{#each frameworks as { value, label }}
-								<Select.Item {value} {label} />
-							{/each}
-						</Select.Content>
-					</Select.Root>
-				</div> -->
+				<div class="ratings">
+					<div>
+						Max: {$maxRating}
+					</div>
+					<div>
+						Current: {$userRating}
+					</div>
+				</div>
 			</div>
 		</form>
 	</Card.Content>
-	<Card.Footer class="flex justify-between">
-		<Button variant="outline">Cancel</Button>
+	<Card.Footer class="flex justify-end">
 		<Button
 			onclick={() => {
 				fetchUserData(userInput);
@@ -88,3 +66,11 @@
 		>
 	</Card.Footer>
 </Card.Root>
+
+<style>
+	.ratings {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+</style>
