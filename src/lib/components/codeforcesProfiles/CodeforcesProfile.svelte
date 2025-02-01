@@ -84,7 +84,7 @@
 		<Button
 			onclick={() => {
 				fetchUserData(userInput);
-			}}>Deploy</Button
+			}}>Submit</Button
 		>
 	</Card.Footer>
 </Card.Root>
