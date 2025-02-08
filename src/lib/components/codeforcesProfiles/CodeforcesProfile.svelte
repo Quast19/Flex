@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { userRating, fetchUserData, maxRating } from '../../stores/codeforcesStore';
 	import { Button } from '$lib/components/ui/button/index';
 	import * as Card from '$lib/components/ui/card/index';
@@ -31,6 +31,9 @@
 		frameworks.find((f) => f.value === framework)?.label ?? 'Select a framework'
 	);
 	let userInput = $state('');
+	const isNumber = (value: number | null) => {
+		return typeof value === 'number' && Number.isFinite(value);
+	};
 	// write the routes here for left navigation.
 	// on having userInput, I want to call the API and get response, need to have it
 </script>
@@ -48,12 +51,12 @@
 					<Input bind:value={userInput} id="name" placeholder="Codeforces Handle" />
 				</div>
 				<div class="ratings">
-					<div>
-						Max: {$maxRating}
-					</div>
-					<div>
-						Current: {$userRating}
-					</div>
+					{#if isNumber($maxRating)}
+						<div>Max: {$maxRating}</div>
+					{/if}
+					{#if isNumber($userRating)}
+						<div>Current: {$userRating}</div>
+					{/if}
 				</div>
 			</div>
 		</form>
