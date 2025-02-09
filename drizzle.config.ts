@@ -12,3 +12,4 @@ export default defineConfig({
 	strict: true,
 	dialect: 'postgresql'
 });
+

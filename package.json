@@ -26,10 +26,11 @@
 		"@tailwindcss/container-queries": "^0.1.1",
 		"@tailwindcss/forms": "^0.5.10",
 		"@tailwindcss/typography": "^0.5.16",
+		"@types/pg": "^8.11.11",
 		"autoprefixer": "^10.4.20",
 		"bits-ui": "^1.0.0-next.78",
 		"clsx": "^2.1.1",
-		"drizzle-kit": "^0.30.2",
+		"drizzle-kit": "^0.30.4",
 		"eslint": "^9.18.0",
 		"eslint-config-prettier": "^10.0.1",
 		"eslint-plugin-svelte": "^2.46.1",
@@ -54,7 +55,11 @@
 		"@node-rs/argon2": "^2.0.2",
 		"@oslojs/crypto": "^1.0.1",
 		"@oslojs/encoding": "^1.1.0",
+		"better-auth": "^1.1.16",
+		"dotenv": "^16.4.7",
 		"drizzle-orm": "^0.38.4",
-		"mode-watcher": "^0.5.1"
+		"mode-watcher": "^0.5.1",
+		"pg": "^8.13.1",
+		"postgres": "^3.4.5"
 	}
 }
