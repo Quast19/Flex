@@ -9,3 +9,4 @@
 </script>
 
 <CodeforcesProfile />
+<a href='sign-up'>Sign Up</a>
