@@ -50,7 +50,7 @@
 <Card.Root class="w-[350px]">
 	<Card.Header>
 		<Card.Title>Codeforces Profile</Card.Title>
-		<Card.Description>Get Codeforces stats after entering the handle.</Card.Description>
+		<Card.Description>Get Codeforces statistics after entering the handle.</Card.Description>
 	</Card.Header>
 	<Card.Content>
 		<form>
