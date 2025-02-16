@@ -1,5 +1,4 @@
 import { pgTable, text, timestamp, unique, boolean, foreignKey } from "drizzle-orm/pg-core"
-import { sql } from "drizzle-orm"
 
 
 
@@ -62,4 +61,22 @@ export const session = pgTable("session", {
 			name: "session_user_id_user_id_fk"
 		}),
 	unique("session_token_unique").on(table.token),
+]);
+
+export const profile = pgTable("profile", {
+	userId: text("user_id").primaryKey().notNull(),
+	codeforcesHandle: text("codeforces_handle"),
+	leetcodeHandle: text("leetcode_handle"),
+	githubHandle: text("github_handle"),
+	twitterHandle: text("twitter_handle"),
+	linkedinHandle: text("linkedin_handle"),
+	bio: text(),
+	createdAt: timestamp("created_at", { mode: 'string' }).notNull(),
+	updatedAt: timestamp("updated_at", { mode: 'string' }).notNull(),
+}, (table) => [
+	foreignKey({
+			columns: [table.userId],
+			foreignColumns: [user.id],
+			name: "profile_user_id_user_id_fk"
+		}).onDelete("cascade"),
 ]);

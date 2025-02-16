@@ -15,6 +15,13 @@
       "when": 1739364903328,
       "tag": "0001_abnormal_frightful_four",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1739624808079,
+      "tag": "0002_stale_catseye",
+      "breakpoints": true
     }
   ]
 }

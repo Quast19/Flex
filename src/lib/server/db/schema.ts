@@ -1,4 +1,4 @@
-import { pgTable, serial, text, integer, timestamp } from 'drizzle-orm/pg-core';
+import { pgTable, text, timestamp } from 'drizzle-orm/pg-core';
 import { boolean } from "drizzle-orm/pg-core";
 
 
@@ -48,4 +48,16 @@ export const verification = pgTable("verification", {
  expiresAt: timestamp('expires_at').notNull(),
  createdAt: timestamp('created_at'),
  updatedAt: timestamp('updated_at')
-				});
+});
+				
+export const profile = pgTable("profile", {
+  userId: text("user_id").primaryKey().references(() => user.id, { onDelete: "cascade" }),
+  codeforcesHandle: text("codeforces_handle"),
+  leetCodeHandle: text("leetcode_handle"),
+  githubHandle: text("github_handle"),
+  twitterHandle: text("twitter_handle"),
+  linkedinHandle: text("linkedin_handle"),
+  bio: text("bio"),
+  createdAt: timestamp("created_at").notNull(),
+  updatedAt: timestamp("updated_at").notNull(),
+});

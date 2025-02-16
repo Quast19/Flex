@@ -5,32 +5,41 @@
 	import * as Select from '$lib/components/ui/select/index';
 	import { Input } from '$lib/components/ui/input/index';
 	import { Label } from '$lib/components/ui/label/index';
+	import { onMount } from 'svelte';
+	// ✅ Define Profile Interface (Update with all columns from your Drizzle schema)
+	interface Profile {
+		userId: string;
+		codeforcesHandle?: string;
+		leetCodeHandle?: string;
+		githubHandle?: string;
+		twitterHandle?: string;
+		bio?: string;
+		website?: string;
+		location?: string;
+		createdAt: string;
+		updatedAt: string;
+	}
 
-	const frameworks = [
-		{
-			value: 'sveltekit',
-			label: 'SvelteKit'
-		},
-		{
-			value: 'next',
-			label: 'Next.js'
-		},
-		{
-			value: 'astro',
-			label: 'Astro'
-		},
-		{
-			value: 'nuxt',
-			label: 'Nuxt.js'
+	let profileData: Profile | undefined = $state();
+	async function fetchProfile(): Promise<void> {
+		try {
+			const res = await fetch('/api/profiles'); // ✅ Fetch for logged-in user
+			if (!res.ok) {
+				throw new Error('Failed to fetch profile');
+			}
+			profileData = await res.json();
+		} catch (error) {
+			console.error(error);
 		}
-	];
+	}
+	let codeforcesHandle = $state('');
+	$effect(() => {
+		if (profileData != undefined) {
+			codeforcesHandle = profileData.codeforcesHandle ? profileData.codeforcesHandle : '';
+		}
+	});
 
-	let framework = $state('');
-
-	const selectedFramework = $derived(
-		frameworks.find((f) => f.value === framework)?.label ?? 'Select a framework'
-	);
-	let userInput = $state('');
+	onMount(fetchProfile);
 	const isNumber = (value: number | null) => {
 		return typeof value === 'number' && Number.isFinite(value);
 	};
@@ -48,7 +57,7 @@
 			<div class="grid w-full items-center gap-4">
 				<div class="flex flex-col space-y-1.5">
 					<Label for="name">Handle</Label>
-					<Input bind:value={userInput} id="name" placeholder="Codeforces Handle" />
+					<Input bind:value={codeforcesHandle} id="name" placeholder="Codeforces Handle" />
 				</div>
 				<div class="ratings">
 					{#if isNumber($maxRating)}
@@ -64,11 +73,24 @@
 	<Card.Footer class="flex justify-end">
 		<Button
 			onclick={() => {
-				fetchUserData(userInput);
+				fetchUserData(codeforcesHandle);
 			}}>Submit</Button
 		>
 	</Card.Footer>
 </Card.Root>
+
+<!-- 
+{#if profileData}
+	<p><strong>Codeforces:</strong> {profileData.codeforcesHandle}</p>
+	<p><strong>LeetCode:</strong> {profileData.leetCodeHandle}</p>
+	<p><strong>GitHub:</strong> {profileData.githubHandle}</p>
+	<p><strong>Twitter:</strong> {profileData.twitterHandle}</p>
+	<p><strong>Bio:</strong> {profileData.bio}</p>
+	<p><strong>Website:</strong> <a href={profileData.website}>{profileData.website}</a></p>
+	<p><strong>Location:</strong> {profileData.location}</p>
+	<p><small>Profile Created: {new Date(profileData.createdAt).toLocaleString()}</small></p>
+	<p><small>Last Updated: {new Date(profileData.updatedAt).toLocaleString()}</small></p>
+{/if} -->
 
 <style>
 	.ratings {
