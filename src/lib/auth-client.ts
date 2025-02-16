@@ -4,9 +4,10 @@ import { writable } from "svelte/store";
 
 export const authClient = createAuthClient(
   {
-    baseURL: 'https://super-duper-system-rvqqp5j4qppcgq4-5173.app.github.dev' // the base url of your auth server
+    baseURL: 'http://localhost:5173' // the base url of your auth server
   }
 );
+// console.log(process.env.BETTER_AUTH_URL as string, " is the ")
 export const session = writable(null);
 
 // Sign-in function
