@@ -38,3 +38,73 @@ export const GET: RequestHandler = async ({ request  }) => {
     return json({ error: "Internal server error" }, { status: 500 });
   }
 };
+
+
+export const POST: RequestHandler = async ({ request }) => {
+    const session = await auth.api.getSession({ headers: request.headers });
+
+    if (!session || !session.user.id) {
+        return json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const userId = session.user.id;
+
+    try {
+        const body = await request.json();
+        const {
+            codeforcesHandle,
+            leetCodeHandle,
+            githubHandle,
+            twitterHandle,
+            linkedinHandle,
+            bio
+        } = body;
+
+        // Get current timestamp
+        const now = new Date();
+
+        // Check if profile already exists
+        const existingProfile = await db
+            .select()
+            .from(profile)
+            .where(eq(profile.userId, userId))
+            .limit(1);
+
+        if (existingProfile.length > 0) {
+            // Update existing profile
+            await db
+                .update(profile)
+                .set({
+                    codeforcesHandle,
+                    leetCodeHandle,
+                    githubHandle,
+                    twitterHandle,
+                    linkedinHandle,
+                    bio,
+                    updatedAt: now
+                })
+                .where(eq(profile.userId, userId));
+
+            return json({ success: true, message: "Profile updated" });
+        }
+
+        // Insert new profile
+        await db.insert(profile).values({
+            userId,
+            codeforcesHandle,
+            leetCodeHandle,
+            githubHandle,
+            twitterHandle,
+            linkedinHandle,
+            bio,
+            createdAt: now,
+            updatedAt: now
+        });
+
+        return json({ success: true, message: "Profile created" });
+
+    } catch (error) {
+        console.error("Error processing profile:", error);
+        return json({ error: "Internal server error" }, { status: 500 });
+    }
+};

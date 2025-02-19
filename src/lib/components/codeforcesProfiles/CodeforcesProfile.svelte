@@ -32,6 +32,31 @@
 			console.error(error);
 		}
 	}
+	async function updateProfile(profile: {
+		codeforcesHandle?: string;
+		leetCodeHandle?: string;
+		githubHandle?: string;
+		twitterHandle?: string;
+		linkedinHandle?: string;
+		bio?: string;
+	}): Promise<void> {
+		try {
+			const res = await fetch('/api/profiles', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(profile)
+			});
+
+			if (!res.ok) {
+				throw new Error('Failed to update profile');
+			}
+
+			const data = await res.json();
+			console.log('Profile updated:', data);
+		} catch (error) {
+			console.error('Error updating profile:', error);
+		}
+	}
 	let codeforcesHandle = $state('');
 	$effect(() => {
 		if (profileData != undefined) {
@@ -73,7 +98,11 @@
 	<Card.Footer class="flex justify-end">
 		<Button
 			onclick={() => {
+				updateProfile({
+					codeforcesHandle
+				});
 				fetchUserData(codeforcesHandle);
+				//updateProfile(...profileData);
 			}}>Submit</Button
 		>
 	</Card.Footer>
