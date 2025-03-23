@@ -66,6 +66,7 @@ export const session = pgTable("session", {
 export const profile = pgTable("profile", {
 	userId: text("user_id").primaryKey().notNull(),
 	codeforcesHandle: text("codeforces_handle"),
+	codechefHandle: text("codechef_handle"),
 	leetcodeHandle: text("leetcode_handle"),
 	githubHandle: text("github_handle"),
 	twitterHandle: text("twitter_handle"),
