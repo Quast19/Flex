@@ -108,7 +108,10 @@ export const combinedPlatforms = derived(
 		userRatingCodechef,
 		maxRatingCodechef,
 		userRatingLeetCode,
-		maxRatingLeetCode
+		maxRatingLeetCode,
+		githubFollowers,
+		githubPublicRepos
+
 	],
 	([
 		$userRatingCodeforces,
@@ -116,7 +119,9 @@ export const combinedPlatforms = derived(
 		$userRatingCodechef,
 		$maxRatingCodechef,
 		$userRatingLeetCode,
-		$maxRatingLeetCode
+		$maxRatingLeetCode,
+		$githubFollowers,
+		$githubPublicRepos
 	]) => [
 		{
 			key: 'codeforcesHandle',
@@ -125,7 +130,9 @@ export const combinedPlatforms = derived(
 			placeholder: 'Codeforces Handle',
 			showRating: true,
 			maxRating: $maxRatingCodeforces,
-			userRating: $userRatingCodeforces
+			userRating: $userRatingCodeforces,
+			firstTag: 'Max Rating',
+			secondTag: 'User Rating'
 		},
 		{
 			key: 'leetCodeHandle',
@@ -134,7 +141,9 @@ export const combinedPlatforms = derived(
 			placeholder: 'LeetCode Handle',
 			showRating: true,
 			maxRating: $maxRatingLeetCode,
-			userRating: $userRatingLeetCode
+			userRating: $userRatingLeetCode,
+			firstTag: 'Rating',
+			secondTag: 'Total Solved'
 		},
 		{
 			key: 'codechefHandle',
@@ -143,14 +152,20 @@ export const combinedPlatforms = derived(
 			placeholder: 'CodeChef Handle',
 			showRating: true,
 			maxRating: $maxRatingCodechef,
-			userRating: $userRatingCodechef
+			userRating: $userRatingCodechef,
+			firstTag: 'Max Rating',
+			secondTag: 'User Rating'
 		},
 		{
 			key: 'githubHandle',
 			name: 'GitHub',
 			description: 'Get GitHub statistics after entering the username.',
 			placeholder: 'GitHub Username',
-			showRating: false
+			showRating: true,
+			maxRating: $githubFollowers,
+			userRating: $githubPublicRepos,
+			firstTag: 'Followers',
+			secondTag: 'Repo Count'
 		}
 	]
 );
