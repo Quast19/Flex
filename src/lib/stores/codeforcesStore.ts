@@ -142,7 +142,7 @@ export const combinedPlatforms = derived(
 			showRating: true,
 			maxRating: $maxRatingLeetCode,
 			userRating: $userRatingLeetCode,
-			firstTag: 'Rating',
+			firstTag: 'Ranking',
 			secondTag: 'Total Solved'
 		},
 		{
