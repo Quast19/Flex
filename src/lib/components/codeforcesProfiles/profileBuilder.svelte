@@ -113,8 +113,10 @@
 					</div>
 					{#if platform.showRating}
 						<div class="ratings">
-							<div>{platform.firstTag}: {platform.maxRating ?? 'N/A'}</div>
-							<div>{platform.secondTag}: {platform.userRating ?? 'N/A'}</div>
+							{#if platform.maxRating != null && platform.userRating != null}
+								<div>{platform.firstTag}: {platform.maxRating ?? ''}</div>
+								<div>{platform.secondTag}: {platform.userRating ?? ''}</div>
+							{/if}
 						</div>
 					{/if}
 				</div>
