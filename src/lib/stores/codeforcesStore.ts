@@ -4,7 +4,7 @@ import type { UserInfoResponse as CodeforcesResponse } from '../components/codef
 import type { CodechefResponse } from '../components/codeforcesProfiles/profileBuilder.types';
 import type { LeetcodeResponse } from '../components/codeforcesProfiles/profileBuilder.types';
 import type { GitHubResponse } from '../components/codeforcesProfiles/profileBuilder.types';
-
+import githubsvg from '$lib/images/github.svg'
 // 1. Codeforces
 export const apiResultCodeforces = writable<CodeforcesResponse | null>(null);
 export const apiErrorCodeforces = writable<string | null>(null);
@@ -123,7 +123,8 @@ export const combinedPlatforms = derived(
 		$githubFollowers,
 		$githubPublicRepos
 	]) => [
-		{
+			{
+			image: './CodeforcesLogo.svg',
 			key: 'codeforcesHandle',
 			name: 'Codeforces',
 			description: 'Get Codeforces statistics after entering the handle.',
@@ -134,7 +135,8 @@ export const combinedPlatforms = derived(
 			firstTag: 'Max Rating',
 			secondTag: 'User Rating'
 		},
-		{
+			{
+			image: "./LeetCode.png",
 			key: 'leetCodeHandle',
 			name: 'LeetCode',
 			description: 'Get LeetCode statistics after entering the handle.',
@@ -145,7 +147,8 @@ export const combinedPlatforms = derived(
 			firstTag: 'Ranking',
 			secondTag: 'Total Solved'
 		},
-		{
+			{
+			image:'CodechefLogo.svg',
 			key: 'codechefHandle',
 			name: 'CodeChef',
 			description: 'Get CodeChef statistics after entering the handle.',
@@ -156,7 +159,8 @@ export const combinedPlatforms = derived(
 			firstTag: 'Max Rating',
 			secondTag: 'User Rating'
 		},
-		{
+			{
+			image: githubsvg,
 			key: 'githubHandle',
 			name: 'GitHub',
 			description: 'Get GitHub statistics after entering the username.',

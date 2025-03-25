@@ -91,8 +91,15 @@
 	{#each platforms as platform}
 		<Card.Root class="w-[380px]">
 			<Card.Header>
-				<Card.Title>{platform.name} Profile</Card.Title>
-				<Card.Description>{platform.description}</Card.Description>
+				<div class="flex items-center gap-5 text-primary">
+					{#if platform?.image}
+						<img src={platform.image} class="size-11 border p-1" />
+					{/if}
+					<div>
+						<Card.Title>{platform.name} Profile</Card.Title>
+						<Card.Description>{platform.description}</Card.Description>
+					</div>
+				</div>
 			</Card.Header>
 			<Card.Content>
 				<div class="grid w-full items-center gap-4">
