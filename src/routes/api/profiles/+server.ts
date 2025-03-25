@@ -57,7 +57,8 @@ export const POST: RequestHandler = async ({ request }) => {
             githubHandle,
             twitterHandle,
             linkedinHandle,
-            bio
+          bio,
+            codechefHandle
         } = body;
 
         // Get current timestamp
@@ -81,6 +82,7 @@ export const POST: RequestHandler = async ({ request }) => {
                     twitterHandle,
                     linkedinHandle,
                     bio,
+                    codechefHandle,
                     updatedAt: now
                 })
                 .where(eq(profile.userId, userId));
@@ -96,7 +98,8 @@ export const POST: RequestHandler = async ({ request }) => {
             githubHandle,
             twitterHandle,
             linkedinHandle,
-            bio,
+          bio,
+            codechefHandle,
             createdAt: now,
             updatedAt: now
         });

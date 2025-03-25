@@ -52,7 +52,8 @@ export const verification = pgTable("verification", {
 				
 export const profile = pgTable("profile", {
   userId: text("user_id").primaryKey().references(() => user.id, { onDelete: "cascade" }),
-  codeforcesHandle: text("codeforces_handle"),
+	codeforcesHandle: text("codeforces_handle"),
+  codechefHandle: text("codechef_handle"),
   leetCodeHandle: text("leetcode_handle"),
   githubHandle: text("github_handle"),
   twitterHandle: text("twitter_handle"),

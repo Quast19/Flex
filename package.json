@@ -58,6 +58,7 @@
 		"better-auth": "^1.1.17",
 		"dotenv": "^16.4.7",
 		"drizzle-orm": "^0.39.3",
+		"jsonwebtoken": "^9.0.2",
 		"mode-watcher": "^0.5.1",
 		"rollup": "^4.34.7"
 	}
