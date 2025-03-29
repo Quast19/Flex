@@ -60,6 +60,7 @@
 		"drizzle-orm": "^0.39.3",
 		"jsonwebtoken": "^9.0.2",
 		"mode-watcher": "^0.5.1",
-		"rollup": "^4.34.7"
+		"rollup": "^4.34.7",
+		"sveltekit-superforms": "^2.24.0"
 	}
 }
