@@ -88,14 +88,14 @@
 </script>
 
 <div class="ProfilePage">
-	<h1
+	<!-- <h1
 		class="mb-14 max-w-xl bg-gradient-to-b from-black via-gray-800 to-gray-500 bg-clip-text text-5xl font-semibold text-transparent dark:from-white dark:via-neutral-400 dark:to-neutral-600 md:text-6xl"
 	>
 		Welcome to <br /> Profile builder
-	</h1>
+	</h1> -->
 	<div class="raatings">
 		{#each platforms as platform}
-			<Card.Root class="w-[300px]">
+			<Card.Root class="w-[350px]">
 				<Card.Header>
 					<div class="flex items-center gap-5 text-primary">
 						{#if platform?.image}
