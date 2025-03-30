@@ -16,7 +16,9 @@
 	<ModeWatcher />
 	<div class="icons">
 		{#if $session}
-			<p>Welcome, {$session?.userId}!</p>
+			<div class="flex items-center justify-center">
+				<p class="text-center">Welcome, {$session?.name}!</p>
+			</div>
 		{/if}
 		{#if !$session}
 			<Button onclick={() => handleSignup()}>Sign In</Button>
@@ -41,6 +43,6 @@
 		margin: 10px;
 	}
 	.Layout {
-		height: 90vh;
+		height: 80vh;
 	}
 </style>

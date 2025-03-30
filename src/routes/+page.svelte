@@ -17,7 +17,7 @@
 		{#if data.session?.user.id != undefined}
 			<Button
 				variant="link"
-				class="animate-text-gradient relative mt-32 inline-flex items-center justify-center bg-gradient-to-r from-[#ACACAC] via-[#363636] to-[#ACACAC] bg-[200%_auto] bg-clip-text px-6 py-3 text-center text-3xl font-medium text-transparent transition-all after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-gradient-to-r after:from-[#ACACAC] after:via-[#363636] after:to-[#ACACAC] after:transition-all after:duration-300 after:content-[''] hover:scale-105 hover:after:w-full"
+				class="animate-text-gradient relative mt-12 inline-flex items-center justify-center bg-gradient-to-r from-[#ACACAC] via-[#363636] to-[#ACACAC] bg-[200%_auto] bg-clip-text px-6 py-3 text-center text-3xl font-medium text-transparent transition-all after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-gradient-to-r after:from-[#ACACAC] after:via-[#363636] after:to-[#ACACAC] after:transition-all after:duration-300 after:content-[''] hover:scale-105 hover:after:w-full"
 				href="/{userId}"
 			>
 				View your profile card

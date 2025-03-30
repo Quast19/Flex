@@ -95,14 +95,14 @@
 	</h1>
 	<div class="raatings">
 		{#each platforms as platform}
-			<Card.Root class="w-[380px]">
+			<Card.Root class="w-[300px]">
 				<Card.Header>
 					<div class="flex items-center gap-5 text-primary">
 						{#if platform?.image}
 							<img src={platform.image} class="size-11 border p-1" />
 						{/if}
 						<div>
-							<Card.Title>{platform.name} Profile</Card.Title>
+							<Card.Title>{platform.name}</Card.Title>
 							<Card.Description>{platform.description}</Card.Description>
 						</div>
 					</div>
