@@ -5,6 +5,7 @@
 	import { signIn } from '$lib/auth-client';
 	import { session } from '$lib/auth-client';
 	import ModeWatcherComponent from '../lib/components/ModeWatcher/ModeWatcherComponent.svelte';
+	import Footer from '$lib/components/footer.svelte';
 	let { children } = $props();
 	const handleSignup = async () => {
 		// console.log('Reached in sign in...');
@@ -31,6 +32,7 @@
 		{@render children?.()}
 	</div>
 </div>
+<footer><Footer /></footer>
 
 <style>
 	.icons {
