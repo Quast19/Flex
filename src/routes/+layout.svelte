@@ -39,7 +39,7 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: end;
-		margin: 10px;
+		gap: 1rem;
 	}
 	.pages {
 		margin: 10px;
