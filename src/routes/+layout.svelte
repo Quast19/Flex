@@ -3,21 +3,33 @@
 	import { ModeWatcher } from 'mode-watcher';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import { signIn } from '$lib/auth-client';
+	import { session } from '$lib/auth-client';
 	import ModeWatcherComponent from '../lib/components/ModeWatcher/ModeWatcherComponent.svelte';
 	let { children } = $props();
 	const handleSignup = async () => {
-		console.log('Reached in sign in...');
+		// console.log('Reached in sign in...');
 		signIn(); // implement signup logic with try catch shiz here.
 	};
 </script>
 
-<ModeWatcher />
-<div class="icons">
-	<Button onclick={() => handleSignup()}>Signup</Button>
-	<ModeWatcherComponent />
-</div>
-<div class="pages">
-	{@render children?.()}
+<div class="Layout">
+	<ModeWatcher />
+	<div class="icons">
+		{#if $session}
+			<div class="flex items-center justify-center">
+				<p class="text-center">Welcome, {$session?.name}!</p>
+			</div>
+		{/if}
+		{#if !$session}
+			<Button onclick={() => handleSignup()}>Sign In</Button>
+		{/if}
+
+		<!-- <p>{session}</p> -->
+		<ModeWatcherComponent />
+	</div>
+	<div class="pages">
+		{@render children?.()}
+	</div>
 </div>
 
 <style>
@@ -29,5 +41,8 @@
 	}
 	.pages {
 		margin: 10px;
+	}
+	.Layout {
+		height: 80vh;
 	}
 </style>

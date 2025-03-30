@@ -5,6 +5,7 @@
 		//console.log("Reached in sign in...")
 		signIn(); // implement signup logic with try catch shiz here.
 	};
+	const { data } = $props();
 </script>
 
-<Button onclick={() => handleSignup()}>Signup</Button>
+<Button onclick={() => handleSignup()}>Login/Signup</Button>

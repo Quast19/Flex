@@ -6,5 +6,5 @@ export const load: PageServerLoad = async ({ request }) => {
 		headers: request.headers,
     });
    // console.log(session)
-	return session;
+	return { session };
 };
