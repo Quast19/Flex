@@ -87,55 +87,67 @@
 	$: platforms = $combinedPlatforms;
 </script>
 
-<div class="ProfilePage">
-	<!-- <h1
+<div>
+	<div class="Inputs">
+		<div class="w-[350px]">
+			<Label for="TwitterHandle">Twitter Handle</Label>
+			<Input id="TwitterHandle" placeholder="Please enter Twitter Handle" />
+		</div>
+		<div class="w-[350px]">
+			<Label for="LinkedInHandle">Linked In Handle</Label>
+			<Input id="LinkedInHandle" placeholder="Please enter LinkedIn URL" />
+		</div>
+	</div>
+	<div class="ProfilePage">
+		<!-- <h1
 		class="mb-14 max-w-xl bg-gradient-to-b from-black via-gray-800 to-gray-500 bg-clip-text text-5xl font-semibold text-transparent dark:from-white dark:via-neutral-400 dark:to-neutral-600 md:text-6xl"
 	>
 		Welcome to <br /> Profile builder
 	</h1> -->
-	<div class="raatings">
-		{#each platforms as platform}
-			<Card.Root class="w-[350px]">
-				<Card.Header>
-					<div class="flex items-center gap-5 text-primary">
-						{#if platform?.image}
-							<img src={platform.image} class="size-11 border p-1" />
-						{/if}
-						<div>
-							<Card.Title>{platform.name}</Card.Title>
-							<Card.Description>{platform.description}</Card.Description>
-						</div>
-					</div>
-				</Card.Header>
-				<Card.Content>
-					<div class="grid w-full items-center gap-4">
-						<div class="flex flex-col space-y-1.5">
-							<Label for={platform.key}>{platform.name} Handle</Label>
-							<Input
-								bind:value={handles[platform.key as HandleKey]}
-								id={platform.key}
-								placeholder={platform.placeholder}
-							/>
-						</div>
-						{#if platform.showRating}
-							<div class="ratings">
-								{#if platform.maxRating != null && platform.userRating != null}
-									<div>{platform.firstTag}: {platform.maxRating ?? ''}</div>
-									<div>{platform.secondTag}: {platform.userRating ?? ''}</div>
-								{/if}
+		<div class="raatings">
+			{#each platforms as platform}
+				<Card.Root class="w-[350px]">
+					<Card.Header>
+						<div class="flex items-center gap-5 text-primary">
+							{#if platform?.image}
+								<img src={platform.image} class="size-11 border p-1" />
+							{/if}
+							<div>
+								<Card.Title>{platform.name}</Card.Title>
+								<Card.Description>{platform.description}</Card.Description>
 							</div>
-						{/if}
-					</div>
-				</Card.Content>
-				<Card.Footer class="flex justify-end">
-					<Button
-						onclick={() =>
-							handleUpdate(platform.key as HandleKey, handles[platform.key as HandleKey])}
-						>Submit</Button
-					>
-				</Card.Footer>
-			</Card.Root>
-		{/each}
+						</div>
+					</Card.Header>
+					<Card.Content>
+						<div class="grid w-full items-center gap-4">
+							<div class="flex flex-col space-y-1.5">
+								<Label for={platform.key}>{platform.name} Handle</Label>
+								<Input
+									bind:value={handles[platform.key as HandleKey]}
+									id={platform.key}
+									placeholder={platform.placeholder}
+								/>
+							</div>
+							{#if platform.showRating}
+								<div class="ratings">
+									{#if platform.maxRating != null && platform.userRating != null}
+										<div>{platform.firstTag}: {platform.maxRating ?? ''}</div>
+										<div>{platform.secondTag}: {platform.userRating ?? ''}</div>
+									{/if}
+								</div>
+							{/if}
+						</div>
+					</Card.Content>
+					<Card.Footer class="flex justify-end">
+						<Button
+							onclick={() =>
+								handleUpdate(platform.key as HandleKey, handles[platform.key as HandleKey])}
+							>Submit</Button
+						>
+					</Card.Footer>
+				</Card.Root>
+			{/each}
+		</div>
 	</div>
 </div>
 
@@ -150,5 +162,13 @@
 		flex-wrap: wrap;
 		gap: 1rem;
 		justify-content: center;
+	}
+	.Inputs {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		margin-top: 10px;
+		margin-bottom: 10px;
+		gap: 1rem;
 	}
 </style>

@@ -40,6 +40,7 @@
 		flex-direction: row;
 		justify-content: end;
 		gap: 1rem;
+		margin: 10px;
 	}
 	.pages {
 		margin: 10px;
