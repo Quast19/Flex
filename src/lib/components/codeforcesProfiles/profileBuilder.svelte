@@ -8,8 +8,8 @@
 	} from '../../stores/codeforcesStore';
 	import { Button } from '$lib/components/ui/button/index';
 	import * as Card from '$lib/components/ui/card/index';
-	import { Input } from '$lib/components/ui/input/index';
 	import { Label } from '$lib/components/ui/label/index';
+	import { Input } from '$lib/components/ui/input/index';
 	import { onMount } from 'svelte';
 	import { authClient } from '$lib/auth-client';
 	import type { Profile } from '../common';
@@ -88,22 +88,37 @@
 </script>
 
 <div>
-	<div class="Inputs">
-		<div class="w-[350px]">
-			<Label for="TwitterHandle">Twitter Handle</Label>
-			<Input id="TwitterHandle" placeholder="Please enter Twitter Handle" />
-		</div>
-		<div class="w-[350px]">
-			<Label for="LinkedInHandle">Linked In Handle</Label>
-			<Input id="LinkedInHandle" placeholder="Please enter LinkedIn URL" />
-		</div>
-	</div>
 	<div class="ProfilePage">
 		<!-- <h1
 		class="mb-14 max-w-xl bg-gradient-to-b from-black via-gray-800 to-gray-500 bg-clip-text text-5xl font-semibold text-transparent dark:from-white dark:via-neutral-400 dark:to-neutral-600 md:text-6xl"
 	>
 		Welcome to <br /> Profile builder
 	</h1> -->
+		<!-- <div class="Inputs">
+			<div class="w-[350px]">
+				<Label for="College">Enter Institute for highest education:</Label>
+				<Input id="College" placeholder="Please enter school name" />
+			</div>
+			<div class="w-[350px]">
+				<label for="College">Your cummilative score (CGPA/SGPA)</label>
+				<Input id="College" placeholder="Please enter school name" />
+			</div>
+			<div class="w-[350px]">
+				<label for="College">Your cummilative score out of? (10, 4 etc)</label>
+				<Input id="College" placeholder="Please enter school name" />
+			</div>
+		</div> -->
+		<div class="Inputs">
+			<div class="w-[350px]">
+				<Label for="TwitterHandle">X Handle:</Label>
+				<Input id="TwitterHandle" placeholder="Please enter X Handle" />
+				<Button type="submit">Hey</Button>
+			</div>
+			<div class="w-[350px]">
+				<Label for="LinkedInHandle">Linked In Handle:</Label>
+				<Input id="LinkedInHandle" placeholder="Please enter LinkedIn URL" />
+			</div>
+		</div>
 		<div class="raatings">
 			{#each platforms as platform}
 				<Card.Root class="w-[350px]">
