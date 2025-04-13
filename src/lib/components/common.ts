@@ -5,6 +5,7 @@ export interface Profile {
 		githubHandle?: string;
 		codechefHandle?: string;
 		twitterHandle?: string;
+		linkedinHandle?: string;
 		bio?: string;
 		website?: string;
 		location?: string;
