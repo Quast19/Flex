@@ -10,17 +10,14 @@ export const GET: RequestHandler = async ({ request  }) => {
       });
 
   if (!session || !session.user.id) {
-    //console.log(session, "is the session");
     return json({ error: "Unauthorized" }, { status: 401 });
   }
 
   const userId = session.user.id;
-  console.log(session, " is here ");
   //  Ensure userId is defined and a valid string
   if (!userId) {
     return json({ error: "User ID is required" }, { status: 400 });
   }
-  //console.log(userId, " is the user Id");
   try {
     // Fetch profile by user ID
     const userProfile = await db
@@ -32,7 +29,6 @@ export const GET: RequestHandler = async ({ request  }) => {
     if (userProfile.length === 0) {
       return json({ error: "Profile not found" }, { status: 404 });
     }
-    console.log(userProfile[0], " is logged bro ");
     return json(userProfile[0]); // Return the first result
   } catch (error) {
     console.error("Error fetching profile:", error);

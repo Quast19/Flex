@@ -10,7 +10,6 @@ export const GET: RequestHandler = async ({ request  }) => {
       });
 
   if (!session || !session.user.id) {
-    //console.log(session, "is the session");
     return json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -19,7 +18,6 @@ export const GET: RequestHandler = async ({ request  }) => {
   if (!userId) {
     return json({ error: "User ID is required" }, { status: 400 });
   }
-  //console.log(userId, " is the user Id");
   try {
     // Fetch profile by user ID
     const userProfile = await db

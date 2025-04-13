@@ -60,7 +60,6 @@
 			});
 			if (!res.ok) throw new Error('Failed to update profile');
 			const data = await res.json();
-			console.log('Profile updated:', data);
 		} catch (error) {
 			console.error('Error updating profile:', error);
 		}
