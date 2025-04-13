@@ -57,7 +57,7 @@ export const POST: RequestHandler = async ({ request }) => {
             githubHandle,
             twitterHandle,
             linkedinHandle,
-          bio,
+            bio,
             codechefHandle
         } = body;
 

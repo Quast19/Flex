@@ -14,7 +14,13 @@
 	import { authClient } from '$lib/auth-client';
 	import type { Profile } from '../common';
 
-	type HandleKey = 'codeforcesHandle' | 'leetCodeHandle' | 'githubHandle' | 'codechefHandle';
+	type HandleKey =
+		| 'codeforcesHandle'
+		| 'leetCodeHandle'
+		| 'githubHandle'
+		| 'codechefHandle'
+		| 'twitterHandle'
+		| 'linkedinHandle';
 
 	let profileData: Profile | undefined;
 	let session;
@@ -23,7 +29,9 @@
 		codeforcesHandle: '',
 		leetCodeHandle: '',
 		githubHandle: '',
-		codechefHandle: ''
+		codechefHandle: '',
+		twitterHandle: '',
+		linkedinHandle: ''
 	};
 
 	async function fetchProfile() {
@@ -41,6 +49,8 @@
 		leetCodeHandle?: string;
 		githubHandle?: string;
 		codechefHandle?: string;
+		twitterHandle?: string;
+		linkedinHandle?: string;
 	}): Promise<void> {
 		try {
 			const res = await fetch('/api/profiles', {
@@ -64,6 +74,8 @@
 			handles.leetCodeHandle = profileData.leetCodeHandle ?? '';
 			handles.githubHandle = profileData.githubHandle ?? '';
 			handles.codechefHandle = profileData.codechefHandle ?? '';
+			handles.twitterHandle = profileData.twitterHandle ?? '';
+			handles.linkedinHandle = profileData.linkedinHandle ?? '';
 		}
 	});
 
@@ -89,34 +101,34 @@
 
 <div>
 	<div class="ProfilePage">
-		<!-- <h1
-		class="mb-14 max-w-xl bg-gradient-to-b from-black via-gray-800 to-gray-500 bg-clip-text text-5xl font-semibold text-transparent dark:from-white dark:via-neutral-400 dark:to-neutral-600 md:text-6xl"
-	>
-		Welcome to <br /> Profile builder
-	</h1> -->
-		<!-- <div class="Inputs">
-			<div class="w-[350px]">
-				<Label for="College">Enter Institute for highest education:</Label>
-				<Input id="College" placeholder="Please enter school name" />
-			</div>
-			<div class="w-[350px]">
-				<label for="College">Your cummilative score (CGPA/SGPA)</label>
-				<Input id="College" placeholder="Please enter school name" />
-			</div>
-			<div class="w-[350px]">
-				<label for="College">Your cummilative score out of? (10, 4 etc)</label>
-				<Input id="College" placeholder="Please enter school name" />
-			</div>
-		</div> -->
 		<div class="Inputs">
 			<div class="w-[350px]">
 				<Label for="TwitterHandle">X Handle:</Label>
-				<Input id="TwitterHandle" placeholder="Please enter X Handle" />
-				<Button type="submit">Hey</Button>
+				<form
+					class="flex w-full max-w-sm items-center space-x-2"
+					onsubmit={() => {
+						handleUpdate('twitterHandle', handles['twitterHandle']);
+					}}
+				>
+					<Input
+						bind:value={handles['twitterHandle']}
+						type="TwitterHandle"
+						placeholder="X Handle"
+					/>
+					<Button type="submit">submit</Button>
+				</form>
 			</div>
 			<div class="w-[350px]">
-				<Label for="LinkedInHandle">Linked In Handle:</Label>
-				<Input id="LinkedInHandle" placeholder="Please enter LinkedIn URL" />
+				<Label for="linkedinHandle">Linked In Handle:</Label>
+				<form
+					class="flex w-full max-w-sm items-center space-x-2"
+					onsubmit={() => {
+						handleUpdate('linkedinHandle', handles['linkedinHandle']);
+					}}
+				>
+					<Input bind:value={handles['linkedinHandle']} type="linkedIn" placeholder="Linked In" />
+					<Button type="submit">submit</Button>
+				</form>
 			</div>
 		</div>
 		<div class="raatings">
@@ -180,6 +192,7 @@
 	}
 	.Inputs {
 		display: flex;
+		flex-wrap: wrap;
 		flex-direction: row;
 		justify-content: center;
 		margin-top: 10px;

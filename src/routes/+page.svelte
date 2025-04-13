@@ -10,10 +10,15 @@
 <!-- {data.session?.session.id} -->
 <div class="Page">
 	<h1
-		class="mb-14 max-w-xl bg-gradient-to-b from-black via-gray-800 to-gray-500 bg-clip-text text-5xl font-semibold text-transparent dark:from-white dark:via-neutral-400 dark:to-neutral-600 md:text-6xl"
+		class="mx-auto mb-14 max-w-xl bg-gradient-to-b
+         from-black via-gray-800 to-gray-500 bg-clip-text
+         text-center text-5xl font-semibold text-transparent
+         dark:from-white dark:via-neutral-400 dark:to-neutral-600
+         md:text-4xl"
 	>
-		Profile builder
+		Welcome to Profile builder
 	</h1>
+
 	<div class="Profiles">
 		<CodeforcesProfile />
 	</div>
