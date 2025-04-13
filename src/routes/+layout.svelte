@@ -8,7 +8,6 @@
 	import Footer from '$lib/components/footer.svelte';
 	let { children } = $props();
 	const handleSignup = async () => {
-		// console.log('Reached in sign in...');
 		signIn(); // implement signup logic with try catch shiz here.
 	};
 </script>
