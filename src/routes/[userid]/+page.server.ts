@@ -2,6 +2,7 @@ import type { PageServerLoad } from "./$types";
 import { db } from "$lib/server/db";
 import { profile } from "$lib/server/db/schema";
 import { eq } from "drizzle-orm";
+import type { CodechefResponse, GitHubResponse, UserInfoResponse } from "$lib/components/codeforcesProfiles/profileBuilder.types";
 
 export const load: PageServerLoad = async ({ params }) => {
     const userId = params.userid;
@@ -72,10 +73,14 @@ export const load: PageServerLoad = async ({ params }) => {
 
         return {
             platformData: {
-                codeforces: codeforcesData?.result?.[0] ?? null,
-                codechef: codechefData ?? null,
-                github: githubData ?? null,
-                leetcode: leetcodeData?.data ?? null
+                codeforces: codeforcesData as UserInfoResponse?? null,
+                codechef: codechefData as CodechefResponse ?? null,
+                github: githubData as GitHubResponse ?? null,
+                leetcode: leetcodeData?.data ?? null,
+                codeforcesHandle: profileData.codeforcesHandle,
+                codechefHandle: profileData.codechefHandle,
+                leetCodeHandle: profileData.leetCodeHandle,
+                githubHandle: profileData.githubHandle
             },
             socialHandles: {
                 twitter: profileData.twitterHandle ?? null,
