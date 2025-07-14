@@ -56,6 +56,8 @@
 		"@oslojs/crypto": "^1.0.1",
 		"@oslojs/encoding": "^1.1.0",
 		"better-auth": "^1.1.17",
+		"chart.js": "^4.5.0",
+		"d3": "^7.9.0",
 		"dotenv": "^16.4.7",
 		"drizzle-orm": "^0.39.3",
 		"jsonwebtoken": "^9.0.2",

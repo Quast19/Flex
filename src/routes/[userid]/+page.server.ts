@@ -25,6 +25,10 @@ export const load: PageServerLoad = async ({ params }) => {
                 ? fetch(`https://codeforces.com/api/user.info?handles=${profileData.codeforcesHandle}`).then(r => r.json())
                 : Promise.resolve(null),
 
+            profileData.codeforcesHandle
+                ? fetch(`https://codeforces.com/api/user.status?handle=${profileData.codeforcesHandle}&verdict=ok`).then(r => r.json())
+                : Promise.resolve(null),
+            
             profileData.codechefHandle
                 ? fetch(`https://codechef-api.vercel.app/handle/${profileData.codechefHandle}`).then(r => r.json())
                 : Promise.resolve(null),
@@ -67,13 +71,14 @@ export const load: PageServerLoad = async ({ params }) => {
                 : Promise.resolve(null)
         ]);
 
-        const [codeforcesData, codechefData, githubData, leetcodeData] = results.map(r =>
+        const [codeforcesData, codeforcesSubmissions, codechefData, githubData, leetcodeData] = results.map(r =>
             r.status === "fulfilled" ? r.value : null
         );
 
         return {
             platformData: {
-                codeforces: codeforcesData as UserInfoResponse?? null,
+                codeforces: codeforcesData as UserInfoResponse ?? null,
+                codeforcesSub: codeforcesSubmissions,
                 codechef: codechefData as CodechefResponse ?? null,
                 github: githubData as GitHubResponse ?? null,
                 leetcode: leetcodeData?.data ?? null,

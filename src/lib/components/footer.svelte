@@ -1,7 +1,7 @@
 <script>
 </script>
 
-<footer class="py-16 md:py-32">
+<footer class="py-8 md:py-8">
 	<div class="mx-auto max-w-5xl px-6">
 		<a href="/" aria-label="go home" class="mx-auto block size-fit">
 			<img src="/ffavicon.png" class="size-10" />

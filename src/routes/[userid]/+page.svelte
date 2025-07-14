@@ -3,6 +3,7 @@
 	import ProfileHeader from './profileHeader.svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import type { PageData } from './$types';
+	import CodeforcesBar from '$lib/components/Visualizations/CodeforcesBar.svelte';
 	let {
 		data
 	}: {
@@ -78,3 +79,9 @@
 		>Github</Button
 	>
 </div>
+{#if platform?.codeforcesSub?.result}
+	<!-- <pre>{JSON.stringify(platform.codeforcesSub.result[0], null, 2)}</pre> -->
+	<CodeforcesBar userInfo={platform.codeforces} submissions={platform?.codeforcesSub.result} />
+{:else}
+	<p>Loading or no data...</p>
+{/if}
