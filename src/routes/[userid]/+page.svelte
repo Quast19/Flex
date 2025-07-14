@@ -1,6 +1,14 @@
 <script lang="ts">
 	import Avatar from '$lib/components/ui/avatar/avatar.svelte';
-	let { data } = $props();
+	import ProfileHeader from './profileHeader.svelte';
+	import { Button } from '$lib/components/ui/button/index.js';
+	import type { PageData } from './$types';
+	import CodeforcesBar from '$lib/components/Visualizations/CodeforcesBar.svelte';
+	let {
+		data
+	}: {
+		data: PageData;
+	} = $props();
 	// Extract the user data from the result array (if it exists)
 	const { platformData: platform, socialHandles: social } = data;
 	// Function to get the appropriate color for the user's rank
@@ -38,55 +46,42 @@
 	}
 </script>
 
-<!-- CODEFORCES -->
-<h2 class="mt-6 text-xl font-bold">Social Profiles</h2>
-<ul>
-	{#if social?.twitter}
-		<li>
-			<a
-				href={`https://twitter.com/${social?.twitter}`}
-				target="_blank"
-				class="text-blue-500 hover:underline"
-			>
-				Twitter: @{social?.twitter}
-			</a>
-		</li>
-	{/if}
-
-	{#if social?.linkedin}
-		<li>
-			<a href={`${social?.linkedin}`} target="_blank" class="text-blue-700 hover:underline">
-				LinkedIn
-			</a>
-		</li>
-	{/if}
-</ul>
-{#if platform}
-	<h2 class="text-xl font-bold">Codeforces</h2>
-	{#if platform.codeforces}
-		<p>Handle: {platform.codeforces.handle}</p>
-		<p>Rating: {platform.codeforces.rating}</p>
-		<p>Rank: {platform.codeforces.rank}</p>
-	{/if}
-
-	<h2 class="mt-4 text-xl font-bold">CodeChef</h2>
-	{#if platform.codechef}
-		<p>Name: {platform.codechef.name}</p>
-		<p>Current Rating: {platform.codechef.currentRating}</p>
-		<p>Stars: {platform.codechef.stars}</p>
-	{/if}
-
-	<h2 class="mt-4 text-xl font-bold">GitHub</h2>
-	{#if platform.github}
-		<p>Username: {platform.github.login}</p>
-		<p>Public Repos: {platform.github.public_repos}</p>
-		<p>Followers: {platform.github.followers}</p>
-	{/if}
-
-	<h2 class="mt-4 text-xl font-bold">LeetCode</h2>
-	{#if platform.leetcode}
-		<p>Rating: {platform.leetcode.userContestRanking?.rating}</p>
-		<p>Global Ranking: {platform.leetcode.userContestRanking?.globalRanking}</p>
-		<p>Top Percentage: {platform.leetcode.userContestRanking?.topPercentage}%</p>
-	{/if}
+<ProfileHeader socialHandles={data.socialHandles} />
+<h1
+	class="mx-auto max-w-xl
+         bg-gradient-to-b from-black via-gray-800 to-gray-400
+         bg-clip-text pb-2
+         text-center text-3xl font-semibold
+         leading-snug text-transparent dark:from-white dark:via-neutral-400
+         dark:to-neutral-600 sm:pb-3 sm:text-4xl
+         md:pb-4 md:text-5xl lg:text-6xl"
+>
+	{data.platformData?.codeforces?.result[0].firstName +
+		' ' +
+		data.platformData?.codeforces?.result[0].lastName}
+</h1>
+<div class="flex flex-wrap justify-center gap-12 text-blue-600">
+	<Button
+		variant="outline"
+		target="_blank"
+		href="https://codeforces.com/profile/{platform?.codeforces.result[0].handle}">Codeforces</Button
+	>
+	<Button
+		variant="outline"
+		target="_blank"
+		href="https://www.codechef.com/users/{platform?.codechefHandle}">Codechef</Button
+	><Button
+		variant="outline"
+		target="_blank"
+		href="https://leetcode.com/u/{platform?.leetCodeHandle}">LeetCode</Button
+	>
+	<Button variant="outline" target="_blank" href="https://github.com//{platform?.githubHandle}"
+		>Github</Button
+	>
+</div>
+{#if platform?.codeforcesSub?.result}
+	<!-- <pre>{JSON.stringify(platform.codeforcesSub.result[0], null, 2)}</pre> -->
+	<CodeforcesBar userInfo={platform.codeforces} submissions={platform?.codeforcesSub.result} />
+{:else}
+	<p>Loading or no data...</p>
 {/if}

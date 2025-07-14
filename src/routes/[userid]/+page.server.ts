@@ -2,6 +2,7 @@ import type { PageServerLoad } from "./$types";
 import { db } from "$lib/server/db";
 import { profile } from "$lib/server/db/schema";
 import { eq } from "drizzle-orm";
+import type { CodechefResponse, GitHubResponse, UserInfoResponse } from "$lib/components/codeforcesProfiles/profileBuilder.types";
 
 export const load: PageServerLoad = async ({ params }) => {
     const userId = params.userid;
@@ -24,6 +25,10 @@ export const load: PageServerLoad = async ({ params }) => {
                 ? fetch(`https://codeforces.com/api/user.info?handles=${profileData.codeforcesHandle}`).then(r => r.json())
                 : Promise.resolve(null),
 
+            profileData.codeforcesHandle
+                ? fetch(`https://codeforces.com/api/user.status?handle=${profileData.codeforcesHandle}&verdict=ok`).then(r => r.json())
+                : Promise.resolve(null),
+            
             profileData.codechefHandle
                 ? fetch(`https://codechef-api.vercel.app/handle/${profileData.codechefHandle}`).then(r => r.json())
                 : Promise.resolve(null),
@@ -66,16 +71,21 @@ export const load: PageServerLoad = async ({ params }) => {
                 : Promise.resolve(null)
         ]);
 
-        const [codeforcesData, codechefData, githubData, leetcodeData] = results.map(r =>
+        const [codeforcesData, codeforcesSubmissions, codechefData, githubData, leetcodeData] = results.map(r =>
             r.status === "fulfilled" ? r.value : null
         );
 
         return {
             platformData: {
-                codeforces: codeforcesData?.result?.[0] ?? null,
-                codechef: codechefData ?? null,
-                github: githubData ?? null,
-                leetcode: leetcodeData?.data ?? null
+                codeforces: codeforcesData as UserInfoResponse ?? null,
+                codeforcesSub: codeforcesSubmissions,
+                codechef: codechefData as CodechefResponse ?? null,
+                github: githubData as GitHubResponse ?? null,
+                leetcode: leetcodeData?.data ?? null,
+                codeforcesHandle: profileData.codeforcesHandle,
+                codechefHandle: profileData.codechefHandle,
+                leetCodeHandle: profileData.leetCodeHandle,
+                githubHandle: profileData.githubHandle
             },
             socialHandles: {
                 twitter: profileData.twitterHandle ?? null,
