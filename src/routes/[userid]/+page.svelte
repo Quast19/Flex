@@ -62,26 +62,32 @@
 </h1>
 <div class="flex flex-wrap justify-center gap-12 text-blue-600">
 	<Button
-		variant="outline"
+		variant="link"
 		target="_blank"
+		style="color: oklch(0.55 0.22 263)"
 		href="https://codeforces.com/profile/{platform?.codeforces.result[0].handle}">Codeforces</Button
 	>
 	<Button
-		variant="outline"
+		variant="link"
 		target="_blank"
+		style="color: oklch(0.55 0.22 263)"
 		href="https://www.codechef.com/users/{platform?.codechefHandle}">Codechef</Button
 	><Button
-		variant="outline"
+		variant="link"
 		target="_blank"
+		style="color: oklch(0.55 0.22 263)"
 		href="https://leetcode.com/u/{platform?.leetCodeHandle}">LeetCode</Button
 	>
-	<Button variant="outline" target="_blank" href="https://github.com//{platform?.githubHandle}"
-		>Github</Button
+	<Button
+		variant="link"
+		target="_blank"
+		style="color: oklch(0.55 0.22 263)"
+		href="https://github.com//{platform?.githubHandle}">Github</Button
 	>
 </div>
 {#if platform?.codeforcesSub?.result}
-	<!-- <pre>{JSON.stringify(platform.codeforcesSub.result[0], null, 2)}</pre> -->
 	<CodeforcesBar userInfo={platform.codeforces} submissions={platform?.codeforcesSub.result} />
+	<!-- <pre>{JSON.stringify(platform.codeforcesSub.result[0], null, 2)}</pre> -->
 {:else}
 	<p>Loading or no data...</p>
 {/if}
