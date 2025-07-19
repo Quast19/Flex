@@ -86,7 +86,11 @@
 	>
 </div>
 {#if platform?.codeforcesSub?.result}
-	<CodeforcesBar userInfo={platform.codeforces} submissions={platform?.codeforcesSub.result} />
+	<CodeforcesBar
+		userInfo={platform.codeforces}
+		submissions={platform?.codeforcesSub.result}
+		ratings={platform?.codeforcesRating.result}
+	/>
 	<!-- <pre>{JSON.stringify(platform.codeforcesSub.result[0], null, 2)}</pre> -->
 {:else}
 	<p>Loading or no data...</p>

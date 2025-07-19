@@ -24,6 +24,11 @@ export const load: PageServerLoad = async ({ params }) => {
             profileData.codeforcesHandle
                 ? fetch(`https://codeforces.com/api/user.info?handles=${profileData.codeforcesHandle}`).then(r => r.json())
                 : Promise.resolve(null),
+            
+            profileData.codeforcesHandle
+            ? fetch(`https://codeforces.com/api/user.rating?handle=${profileData.codeforcesHandle}`).then(r => r.json())
+            : Promise.resolve(null),
+
 
             profileData.codeforcesHandle
                 ? fetch(`https://codeforces.com/api/user.status?handle=${profileData.codeforcesHandle}&verdict=ok`).then(r => r.json())
@@ -71,7 +76,7 @@ export const load: PageServerLoad = async ({ params }) => {
                 : Promise.resolve(null)
         ]);
 
-        const [codeforcesData, codeforcesSubmissions, codechefData, githubData, leetcodeData] = results.map(r =>
+        const [codeforcesData, codeforcesRatings, codeforcesSubmissions, , codechefData, githubData, leetcodeData] = results.map(r =>
             r.status === "fulfilled" ? r.value : null
         );
 
@@ -79,6 +84,7 @@ export const load: PageServerLoad = async ({ params }) => {
             platformData: {
                 codeforces: codeforcesData as UserInfoResponse ?? null,
                 codeforcesSub: codeforcesSubmissions,
+                codeforcesRating: codeforcesRatings,
                 codechef: codechefData as CodechefResponse ?? null,
                 github: githubData as GitHubResponse ?? null,
                 leetcode: leetcodeData?.data ?? null,
