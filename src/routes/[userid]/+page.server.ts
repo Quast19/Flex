@@ -2,7 +2,8 @@ import type { PageServerLoad } from "./$types";
 import { db } from "$lib/server/db";
 import { profile } from "$lib/server/db/schema";
 import { eq } from "drizzle-orm";
-import type { CodechefResponse, GitHubResponse, UserInfoResponse } from "$lib/components/codeforcesProfiles/profileBuilder.types";
+import type { GitHubResponse, UserInfoResponse } from "$lib/components/codeforcesProfiles/profileBuilder.types";
+
 
 export const load: PageServerLoad = async ({ params }) => {
     const userId = params.userid;
@@ -33,61 +34,84 @@ export const load: PageServerLoad = async ({ params }) => {
             profileData.codeforcesHandle
                 ? fetch(`https://codeforces.com/api/user.status?handle=${profileData.codeforcesHandle}&verdict=ok`).then(r => r.json())
                 : Promise.resolve(null),
-            
-            profileData.codechefHandle
-                ? fetch(`https://codechef-api.vercel.app/handle/${profileData.codechefHandle}`).then(r => r.json())
-                : Promise.resolve(null),
 
             profileData.githubHandle
                 ? fetch(`https://api.github.com/users/${profileData.githubHandle}`).then(r => r.json())
                 : Promise.resolve(null),
 
             profileData.leetCodeHandle
-                ? fetch("https://leetcode.com/graphql", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        query: `
-                          {
-                            userContestRanking(username: "${profileData.leetCodeHandle}") {
-                              attendedContestsCount
-                              rating
-                              globalRanking
-                              totalParticipants
-                              topPercentage    
+            ? fetch("https://leetcode.com/graphql", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    query: `
+                    {
+                        userContestRanking(username: "${profileData.leetCodeHandle}") {
+                        attendedContestsCount
+                        rating
+                        globalRanking
+                        totalParticipants
+                        topPercentage    
+                        }
+                        userContestRankingHistory(username: "${profileData.leetCodeHandle}") {
+                        attended
+                        trendDirection
+                        problemsSolved
+                        totalProblems
+                        finishTimeInSeconds
+                        rating
+                        ranking
+                        contest {
+                            title
+                            startTime
+                        }
+                        }
+                        matchedUser(username: "${profileData.leetCodeHandle}") {
+                            submitStats {
+                                acSubmissionNum {
+                                difficulty
+                                count
+                                submissions
+                                }
                             }
-                            userContestRankingHistory(username: "${profileData.leetCodeHandle}") {
-                              attended
-                              trendDirection
-                              problemsSolved
-                              totalProblems
-                              finishTimeInSeconds
-                              rating
-                              ranking
-                              contest {
-                                title
-                                startTime
-                              }
+                            badges {
+                                id
+                                displayName
+                                icon
+                                creationDate
                             }
-                          }
-                        `
-                    })
-                }).then(r => r.json())
-                : Promise.resolve(null)
+                            problemsSolvedBeatsStats { 
+                                difficulty
+                                percentage    
+                            }
+                            submitStatsGlobal{
+                                acSubmissionNum{
+                                    difficulty
+                                    count
+                                }
+                            }
+                        }
+                            allQuestionsCount {    
+                            difficulty    
+                            count  
+                            }
+                    }`
+                })
+            }).then(r => r.json())
+            : Promise.resolve(null)
         ]);
 
-        const [codeforcesData, codeforcesRatings, codeforcesSubmissions, , codechefData, githubData, leetcodeData] = results.map(r =>
+        const [codeforcesData, codeforcesRatings, codeforcesSubmissions, githubData, leetcodeData] = results.map(r =>
             r.status === "fulfilled" ? r.value : null
         );
 
         return {
             platformData: {
-                codeforces: codeforcesData as UserInfoResponse ?? null,
+                codeforces: codeforcesData as UserInfoResponse | null,
                 codeforcesSub: codeforcesSubmissions,
                 codeforcesRating: codeforcesRatings,
-                codechef: codechefData as CodechefResponse ?? null,
-                github: githubData as GitHubResponse ?? null,
-                leetcode: leetcodeData?.data ?? null,
+                github: githubData as GitHubResponse | null,
+                leetcode: leetcodeData ?? "No data",
                 codeforcesHandle: profileData.codeforcesHandle,
                 codechefHandle: profileData.codechefHandle,
                 leetCodeHandle: profileData.leetCodeHandle,

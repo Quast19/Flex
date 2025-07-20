@@ -5,6 +5,7 @@
 	import { json } from '@sveltejs/kit';
 	import Chart from 'chart.js/auto';
 	import { onMount } from 'svelte';
+
 	let { userInfo, submissions, ratings } = $props();
 
 	// Extract unique tags and tag frequencies
@@ -80,7 +81,6 @@
 	];
 
 	function ratingColor(val: number): string {
-		console.log(val);
 		if (val >= 2400) return 'text-red-500';
 		if (val >= 2200) return 'text-orange-500';
 		if (val >= 1900) return 'text-purple-500';
