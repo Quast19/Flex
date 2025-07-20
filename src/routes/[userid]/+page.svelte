@@ -6,6 +6,7 @@
 	import Leetcode from '$lib/components/Visualizations/Leetcode.svelte';
 	// <!-- ADDED: Import the new component -->
 	import SolvedProblemsByTopic from '$lib/components/Visualizations/SolvedProblemsByTopic.svelte';
+	import Github from '$lib/components/Visualizations/Github.svelte';
 
 	let {
 		data
@@ -17,7 +18,8 @@
 	const { platformData: platform, socialHandles: social } = data;
 	let hasCodeforcesData = platform?.codeforcesSub?.result && platform?.codeforcesRating?.result;
 	let hasLeetCodeData = platform?.leetcode;
-
+	let hasGithubReposData = platform?.githubRepos;
+	let hasGithubData = platform?.github;
 	// <!-- ADDED: A cleaner way to get the full name with a fallback -->
 	let fullName =
 		platform?.codeforces?.result?.[0]?.firstName && platform?.codeforces?.result?.[0]?.lastName
@@ -72,19 +74,14 @@
 
 <!-- Add a container div for better spacing -->
 <div class="mt-8 space-y-6">
-	{#if hasCodeforcesData && hasLeetCodeData}
+	{#if hasCodeforcesData && hasLeetCodeData && hasGithubReposData && hasGithubData}
 		<CodeforcesBar
 			userInfo={platform?.codeforces}
 			submissions={platform?.codeforcesSub.result}
 			ratings={platform?.codeforcesRating.result}
 		/>
 		<Leetcode leetCodeInfo={platform?.leetcode} />
-
-		<!-- ADDED: Use the new component here, passing the username -->
-		<!-- {#if platform?.leetCodeHandle}
-			<SolvedProblemsByTopic username={platform.leetCodeHandle} />
-		{/if} -->
-		<pre>{JSON.stringify(platform?.github, null, 2)}</pre>
+		<Github githubInfo={hasGithubData} githubRepoInfo={hasGithubReposData} />
 	{:else}
 		<p class="text-center">Loading or no data available for one or more platforms...</p>
 	{/if}

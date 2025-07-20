@@ -151,7 +151,7 @@
 
 			<!-- Right: Chart + Manual Legend -->
 			<div class="flex flex-col items-center">
-				<div class="relative h-64 w-[600px]">
+				<div class="relative h-64 min-w-[300px]">
 					<canvas bind:this={canvasEl} class="max-h-full max-w-full"></canvas>
 				</div>
 				<!-- Manual Legend -->

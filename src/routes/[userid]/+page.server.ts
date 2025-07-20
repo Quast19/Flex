@@ -39,6 +39,10 @@ export const load: PageServerLoad = async ({ params }) => {
                 ? fetch(`https://api.github.com/users/${profileData.githubHandle}`).then(r => r.json())
                 : Promise.resolve(null),
 
+            profileData.githubHandle
+                ? fetch(`https://api.github.com/users/${profileData.githubHandle}/repos`).then(r => r.json())
+                : Promise.resolve(null),
+            
             profileData.leetCodeHandle
             ? fetch("https://leetcode.com/graphql", {
                 method: "POST",
@@ -101,7 +105,7 @@ export const load: PageServerLoad = async ({ params }) => {
             : Promise.resolve(null)
         ]);
 
-        const [codeforcesData, codeforcesRatings, codeforcesSubmissions, githubData, leetcodeData] = results.map(r =>
+        const [codeforcesData, codeforcesRatings, codeforcesSubmissions, githubData, githubRepos, leetcodeData] = results.map(r =>
             r.status === "fulfilled" ? r.value : null
         );
 
@@ -111,6 +115,7 @@ export const load: PageServerLoad = async ({ params }) => {
                 codeforcesSub: codeforcesSubmissions,
                 codeforcesRating: codeforcesRatings,
                 github: githubData as GitHubResponse | null,
+                githubRepos: githubRepos,
                 leetcode: leetcodeData ?? "No data",
                 codeforcesHandle: profileData.codeforcesHandle,
                 codechefHandle: profileData.codechefHandle,
