@@ -57,6 +57,7 @@
 		"@oslojs/encoding": "^1.1.0",
 		"better-auth": "^1.1.17",
 		"chart.js": "^4.5.0",
+		"chartjs-plugin-datalabels": "^2.2.0",
 		"d3": "^7.9.0",
 		"dotenv": "^16.4.7",
 		"drizzle-orm": "^0.39.3",

@@ -1,52 +1,34 @@
 <script lang="ts">
-	import Avatar from '$lib/components/ui/avatar/avatar.svelte';
 	import ProfileHeader from './profileHeader.svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import type { PageData } from './$types';
 	import CodeforcesBar from '$lib/components/Visualizations/CodeforcesBar.svelte';
+	import Leetcode from '$lib/components/Visualizations/Leetcode.svelte';
+	// <!-- ADDED: Import the new component -->
+	import SolvedProblemsByTopic from '$lib/components/Visualizations/SolvedProblemsByTopic.svelte';
+	import Github from '$lib/components/Visualizations/Github.svelte';
+
 	let {
 		data
 	}: {
 		data: PageData;
 	} = $props();
-	// Extract the user data from the result array (if it exists)
-	const { platformData: platform, socialHandles: social } = data;
-	// Function to get the appropriate color for the user's rank
-	function getRankColor(rank: string) {
-		switch (rank) {
-			case 'newbie':
-				return 'text-gray-500';
-			case 'pupil':
-				return 'text-green-500';
-			case 'specialist':
-				return 'text-cyan-500';
-			case 'expert':
-				return 'text-blue-500';
-			case 'candidate master':
-				return 'text-purple-500';
-			case 'master':
-				return 'text-orange-500';
-			case 'international master':
-				return 'text-orange-600';
-			case 'grandmaster':
-				return 'text-red-500';
-			case 'international grandmaster':
-				return 'text-red-600';
-			case 'legendary grandmaster':
-				return 'text-red-700';
-			default:
-				return 'text-gray-700';
-		}
-	}
 
-	// Format date from timestamp
-	function formatDate(timestamp: any) {
-		if (!timestamp) return '';
-		return new Date(timestamp * 1000).toLocaleDateString();
-	}
+	// Destructure platform and social data
+	const { platformData: platform, socialHandles: social } = data;
+	let hasCodeforcesData = platform?.codeforcesSub?.result && platform?.codeforcesRating?.result;
+	let hasLeetCodeData = platform?.leetcode;
+	let hasGithubReposData = platform?.githubRepos;
+	let hasGithubData = platform?.github;
+	// <!-- ADDED: A cleaner way to get the full name with a fallback -->
+	let fullName =
+		platform?.codeforces?.result?.[0]?.firstName && platform?.codeforces?.result?.[0]?.lastName
+			? `${platform.codeforces.result[0].firstName} ${platform.codeforces.result[0].lastName}`
+			: 'User Profile';
 </script>
 
-<ProfileHeader socialHandles={data.socialHandles} />
+<ProfileHeader socialHandles={social} />
+
 <h1
 	class="mx-auto max-w-xl
          bg-gradient-to-b from-black via-gray-800 to-gray-400
@@ -56,42 +38,51 @@
          dark:to-neutral-600 sm:pb-3 sm:text-4xl
          md:pb-4 md:text-5xl lg:text-6xl"
 >
-	{data.platformData?.codeforces?.result[0].firstName +
-		' ' +
-		data.platformData?.codeforces?.result[0].lastName}
+	<!-- MODIFIED: Use the cleaner fullName variable -->
+	{fullName}
 </h1>
+
 <div class="flex flex-wrap justify-center gap-12 text-blue-600">
 	<Button
 		variant="link"
 		target="_blank"
 		style="color: oklch(0.55 0.22 263)"
-		href="https://codeforces.com/profile/{platform?.codeforces.result[0].handle}">Codeforces</Button
+		href="https://codeforces.com/profile/{platform?.codeforces?.result?.[0]?.handle}"
+		>Codeforces</Button
 	>
 	<Button
 		variant="link"
 		target="_blank"
 		style="color: oklch(0.55 0.22 263)"
 		href="https://www.codechef.com/users/{platform?.codechefHandle}">Codechef</Button
-	><Button
-		variant="link"
-		target="_blank"
-		style="color: oklch(0.55 0.22 263)"
-		href="https://leetcode.com/u/{platform?.leetCodeHandle}">LeetCode</Button
 	>
 	<Button
 		variant="link"
 		target="_blank"
 		style="color: oklch(0.55 0.22 263)"
-		href="https://github.com//{platform?.githubHandle}">Github</Button
+		href="https://leetcode.com/{platform?.leetCodeHandle}">LeetCode</Button
 	>
+	<!-- MODIFIED: Corrected LeetCode URL -->
+	<Button
+		variant="link"
+		target="_blank"
+		style="color: oklch(0.55 0.22 263)"
+		href="https://github.com/{platform?.githubHandle}">Github</Button
+	>
+	<!-- MODIFIED: Corrected GitHub URL -->
 </div>
-{#if platform?.codeforcesSub?.result}
-	<CodeforcesBar
-		userInfo={platform.codeforces}
-		submissions={platform?.codeforcesSub.result}
-		ratings={platform?.codeforcesRating.result}
-	/>
-	<!-- <pre>{JSON.stringify(platform.codeforcesSub.result[0], null, 2)}</pre> -->
-{:else}
-	<p>Loading or no data...</p>
-{/if}
+
+<!-- Add a container div for better spacing -->
+<div class="mt-8 space-y-6">
+	{#if hasCodeforcesData && hasLeetCodeData && hasGithubReposData && hasGithubData}
+		<CodeforcesBar
+			userInfo={platform?.codeforces}
+			submissions={platform?.codeforcesSub.result}
+			ratings={platform?.codeforcesRating.result}
+		/>
+		<Leetcode leetCodeInfo={platform?.leetcode} />
+		<Github githubInfo={hasGithubData} githubRepoInfo={hasGithubReposData} />
+	{:else}
+		<p class="text-center">Loading or no data available for one or more platforms...</p>
+	{/if}
+</div>
