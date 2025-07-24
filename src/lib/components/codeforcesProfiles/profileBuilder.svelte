@@ -101,7 +101,7 @@
 <div>
 	<div class="ProfilePage">
 		<div class="Inputs">
-			<div class="w-[350px]">
+			<div class="min-w-[350px]">
 				<Label for="TwitterHandle">X Handle:</Label>
 				<form
 					class="flex w-full max-w-sm items-center space-x-2"
@@ -132,9 +132,9 @@
 		</div>
 		<div class="raatings">
 			{#each platforms as platform}
-				<Card.Root class="w-[350px]">
+				<Card.Root class="min-w-[350px] max-w-[450px]">
 					<Card.Header>
-						<div class="flex items-center gap-5 text-primary">
+						<div class="justify-uniform flex gap-5 text-primary">
 							{#if platform?.image}
 								<img src={platform.image} class="size-11 border p-1" />
 							{/if}
