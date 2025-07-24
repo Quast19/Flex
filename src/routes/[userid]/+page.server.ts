@@ -118,7 +118,6 @@ export const load: PageServerLoad = async ({ params }) => {
                 githubRepos: githubRepos,
                 leetcode: leetcodeData ?? "No data",
                 codeforcesHandle: profileData.codeforcesHandle,
-                codechefHandle: profileData.codechefHandle,
                 leetCodeHandle: profileData.leetCodeHandle,
                 githubHandle: profileData.githubHandle
             },

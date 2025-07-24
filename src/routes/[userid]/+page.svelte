@@ -50,12 +50,12 @@
 		href="https://codeforces.com/profile/{platform?.codeforces?.result?.[0]?.handle}"
 		>Codeforces</Button
 	>
-	<Button
+	<!-- <Button
 		variant="link"
 		target="_blank"
 		style="color: oklch(0.55 0.22 263)"
 		href="https://www.codechef.com/users/{platform?.codechefHandle}">Codechef</Button
-	>
+	> -->
 	<Button
 		variant="link"
 		target="_blank"
