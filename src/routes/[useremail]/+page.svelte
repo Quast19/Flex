@@ -21,10 +21,7 @@
 	let hasGithubReposData = platform?.githubRepos;
 	let hasGithubData = platform?.github;
 	// <!-- ADDED: A cleaner way to get the full name with a fallback -->
-	let fullName =
-		platform?.codeforces?.result?.[0]?.firstName && platform?.codeforces?.result?.[0]?.lastName
-			? `${platform.codeforces.result[0].firstName} ${platform.codeforces.result[0].lastName}`
-			: 'User Profile';
+	let fullName = platform?.userName;
 </script>
 
 <ProfileHeader socialHandles={social} />
@@ -74,15 +71,25 @@
 
 <!-- Add a container div for better spacing -->
 <div class="mt-8 space-y-6">
-	{#if hasCodeforcesData && hasLeetCodeData && hasGithubReposData && hasGithubData}
+	{#if hasCodeforcesData}
 		<CodeforcesBar
 			userInfo={platform?.codeforces}
 			submissions={platform?.codeforcesSub.result}
 			ratings={platform?.codeforcesRating.result}
 		/>
-		<Leetcode leetCodeInfo={platform?.leetcode} />
-		<Github githubInfo={hasGithubData} githubRepoInfo={hasGithubReposData} />
 	{:else}
-		<p class="text-center">Loading or no data available for one or more platforms...</p>
+		<p class="text-center">Codeforces data unavailable.</p>
+	{/if}
+
+	{#if hasLeetCodeData}
+		<Leetcode leetCodeInfo={platform?.leetcode} />
+	{:else}
+		<p class="text-center">LeetCode data unavailable.</p>
+	{/if}
+
+	{#if hasGithubData && hasGithubReposData}
+		<Github githubInfo={platform?.github} githubRepoInfo={platform?.githubRepos} />
+	{:else}
+		<p class="text-center">GitHub data unavailable.</p>
 	{/if}
 </div>

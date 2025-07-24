@@ -1,14 +1,20 @@
 import type { PageServerLoad } from "./$types";
 import { db } from "$lib/server/db";
-import { profile } from "$lib/server/db/schema";
+import { profile, user } from "$lib/server/db/schema";
 import { eq } from "drizzle-orm";
 import type { GitHubResponse, UserInfoResponse } from "$lib/components/codeforcesProfiles/profileBuilder.types";
 
 
 export const load: PageServerLoad = async ({ params }) => {
-    const userId = params.userid;
-
+    let useremail = params.useremail;
+    useremail += "@gmail.com";
+    console.log(useremail);
+    let userId = '1';
+    let userName = 'foobar';
     try {
+        const userRecord = await db.select().from(user).where(eq(user.email, useremail)).limit(1);
+        userId = userRecord[0].id; 
+        userName = userRecord[0].name;
         const userProfile = await db
             .select()
             .from(profile)
@@ -20,7 +26,6 @@ export const load: PageServerLoad = async ({ params }) => {
         }
 
         const profileData = userProfile[0];
-
         const results = await Promise.allSettled([
             profileData.codeforcesHandle
                 ? fetch(`https://codeforces.com/api/user.info?handles=${profileData.codeforcesHandle}`).then(r => r.json())
@@ -105,21 +110,22 @@ export const load: PageServerLoad = async ({ params }) => {
             : Promise.resolve(null)
         ]);
 
-        const [codeforcesData, codeforcesRatings, codeforcesSubmissions, githubData, githubRepos, leetcodeData] = results.map(r =>
+        const [codeforcesData, codeforcesRatings, codeforcesSubmissions,  githubData, githubRepos, leetcodeData] = results.map(r =>
             r.status === "fulfilled" ? r.value : null
         );
 
         return {
             platformData: {
                 codeforces: codeforcesData as UserInfoResponse | null,
-                codeforcesSub: codeforcesSubmissions,
                 codeforcesRating: codeforcesRatings,
+                codeforcesSub: codeforcesSubmissions,
                 github: githubData as GitHubResponse | null,
                 githubRepos: githubRepos,
                 leetcode: leetcodeData ?? "No data",
                 codeforcesHandle: profileData.codeforcesHandle,
                 leetCodeHandle: profileData.leetCodeHandle,
-                githubHandle: profileData.githubHandle
+                githubHandle: profileData.githubHandle,
+                userName: userName,
             },
             socialHandles: {
                 twitter: profileData.twitterHandle ?? null,
