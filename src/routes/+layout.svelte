@@ -15,13 +15,14 @@
 <div class="Layout">
 	<ModeWatcher />
 	<div class="top">
-		<a
-			href="https://github.com/your-username/your-repo"
+		<Button
+			href="https://github.com/Quast19/flex"
 			target="_blank"
-			class="inline-flex items-center gap-2 rounded-lg bg-black px-4 py-2 text-white hover:bg-gray-800"
+			variant="link"
+			style="margin: 10px"
 		>
 			⭐ Star on GitHub
-		</a>
+		</Button>
 		<div class="icons">
 			{#if $session}
 				<div class="flex items-center justify-center">

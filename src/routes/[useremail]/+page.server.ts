@@ -3,6 +3,7 @@ import { db } from "$lib/server/db";
 import { profile, user } from "$lib/server/db/schema";
 import { eq } from "drizzle-orm";
 import type { GitHubResponse, UserInfoResponse } from "$lib/components/codeforcesProfiles/profileBuilder.types";
+import { error } from "@sveltejs/kit";
 
 
 export const load: PageServerLoad = async ({ params }) => {
@@ -12,7 +13,15 @@ export const load: PageServerLoad = async ({ params }) => {
     let userId = '1';
     let userName = 'foobar';
     try {
-        const userRecord = await db.select().from(user).where(eq(user.email, useremail)).limit(1);
+        let userRecord = await db.select().from(user).where(eq(user.email, useremail)).limit(1);
+        if (userRecord.length === 0) {
+            useremail = useremail.replace('@gmail.com', '');
+            userRecord = await db.select().from(user).where(eq(user.id, useremail)).limit(1);
+        }
+        if (userRecord.length === 0) {
+            console.log(userRecord, " sikandar");
+            error(404, "User not found");
+        }
         userId = userRecord[0].id; 
         userName = userRecord[0].name;
         const userProfile = await db
@@ -22,7 +31,7 @@ export const load: PageServerLoad = async ({ params }) => {
             .limit(1);
 
         if (userProfile.length === 0) {
-            return { error: "Profile not found" };
+            error(500, "Profile not found for the user");
         }
 
         const profileData = userProfile[0];
@@ -134,6 +143,6 @@ export const load: PageServerLoad = async ({ params }) => {
         };
     } catch (error) {
         console.error("Error fetching platform data:", error);
-        return { error: "Internal server error" };
+        throw error;
     }
 };
