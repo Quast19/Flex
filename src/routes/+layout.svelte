@@ -14,18 +14,27 @@
 
 <div class="Layout">
 	<ModeWatcher />
-	<div class="icons">
-		{#if $session}
-			<div class="flex items-center justify-center">
-				<p class="text-center">Welcome, {$session?.name}!</p>
-			</div>
-		{/if}
-		{#if !$session}
-			<Button onclick={() => handleSignup()}>Sign In</Button>
-		{/if}
-
-		<!-- <p>{session}</p> -->
-		<ModeWatcherComponent />
+	<div class="top">
+		<Button
+			href="https://github.com/Quast19/flex"
+			target="_blank"
+			variant="link"
+			style="margin: 10px"
+		>
+			⭐ Star on GitHub
+		</Button>
+		<div class="icons">
+			{#if $session}
+				<div class="flex items-center justify-center">
+					<p class="text-center">Welcome, {$session?.name}!</p>
+				</div>
+			{/if}
+			{#if !$session}
+				<Button onclick={() => handleSignup()}>Sign In</Button>
+			{/if}
+			<!-- <p>{session}</p> -->
+			<ModeWatcherComponent />
+		</div>
 	</div>
 	<div class="pages">
 		{@render children?.()}
@@ -34,6 +43,13 @@
 <footer><Footer /></footer>
 
 <style>
+	.top {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		gap: 1rem;
+		margin: 10px;
+	}
 	.icons {
 		display: flex;
 		flex-direction: row;

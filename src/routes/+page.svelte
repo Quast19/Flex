@@ -5,6 +5,8 @@
 	import Button from '$lib/components/ui/button/button.svelte';
 	let { data }: { data: PageData } = $props();
 	let userId = $state(data.session?.user.id);
+	let username = $state(data.session?.user.email.replace('@gmail.com', ''));
+	console.log(username, ' is the userName');
 </script>
 
 <!-- {data.session?.session.id} -->
@@ -28,7 +30,7 @@
 			<Button
 				variant="link"
 				class="relative mt-12  inline-flex	 animate-text-gradient items-center justify-center bg-gradient-to-r from-[#ACACAC] via-[#363636] to-[#ACACAC] bg-[200%_auto] bg-clip-text px-6 py-3 text-center text-3xl font-medium text-transparent transition-all after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-gradient-to-r after:from-[#ACACAC] after:via-[#363636] after:to-[#ACACAC] after:transition-all after:duration-300 after:content-[''] hover:scale-105 hover:after:w-full"
-				href="/{userId}"
+				href="/{username}"
 			>
 				Click to view profile card
 			</Button>

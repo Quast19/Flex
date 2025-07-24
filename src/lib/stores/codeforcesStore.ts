@@ -105,8 +105,8 @@ export const combinedPlatforms = derived(
 	[
 		userRatingCodeforces,
 		maxRatingCodeforces,
-		userRatingCodechef,
-		maxRatingCodechef,
+		//userRatingCodechef,
+		//maxRatingCodechef,
 		userRatingLeetCode,
 		maxRatingLeetCode,
 		githubFollowers,
@@ -116,8 +116,8 @@ export const combinedPlatforms = derived(
 	([
 		$userRatingCodeforces,
 		$maxRatingCodeforces,
-		$userRatingCodechef,
-		$maxRatingCodechef,
+		//$userRatingCodechef,
+		//$maxRatingCodechef,
 		$userRatingLeetCode,
 		$maxRatingLeetCode,
 		$githubFollowers,
@@ -147,18 +147,18 @@ export const combinedPlatforms = derived(
 			firstTag: 'Ranking',
 			secondTag: 'Total Solved'
 		},
-			{
-			image:'CodechefLogo.svg',
-			key: 'codechefHandle',
-			name: 'CodeChef',
-			description: 'Get CodeChef statistics after entering the handle.',
-			placeholder: 'CodeChef Handle',
-			showRating: true,
-			maxRating: $maxRatingCodechef,
-			userRating: $userRatingCodechef,
-			firstTag: 'Max Rating',
-			secondTag: 'User Rating'
-		},
+		// 	{
+		// 	image:'CodechefLogo.svg',
+		// 	key: 'codechefHandle',
+		// 	name: 'CodeChef',
+		// 	description: 'Get CodeChef statistics after entering the handle.',
+		// 	placeholder: 'CodeChef Handle',
+		// 	showRating: true,
+		// 	maxRating: $maxRatingCodechef,
+		// 	userRating: $userRatingCodechef,
+		// 	firstTag: 'Max Rating',
+		// 	secondTag: 'User Rating'
+		// },
 			{
 			image: githubsvg,
 			key: 'githubHandle',

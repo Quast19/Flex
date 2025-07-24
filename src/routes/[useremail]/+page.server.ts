@@ -1,14 +1,29 @@
 import type { PageServerLoad } from "./$types";
 import { db } from "$lib/server/db";
-import { profile } from "$lib/server/db/schema";
+import { profile, user } from "$lib/server/db/schema";
 import { eq } from "drizzle-orm";
 import type { GitHubResponse, UserInfoResponse } from "$lib/components/codeforcesProfiles/profileBuilder.types";
+import { error } from "@sveltejs/kit";
 
 
 export const load: PageServerLoad = async ({ params }) => {
-    const userId = params.userid;
-
+    let useremail = params.useremail;
+    useremail += "@gmail.com";
+    console.log(useremail);
+    let userId = '1';
+    let userName = 'foobar';
     try {
+        let userRecord = await db.select().from(user).where(eq(user.email, useremail)).limit(1);
+        if (userRecord.length === 0) {
+            useremail = useremail.replace('@gmail.com', '');
+            userRecord = await db.select().from(user).where(eq(user.id, useremail)).limit(1);
+        }
+        if (userRecord.length === 0) {
+            console.log(userRecord, " sikandar");
+            error(404, "User not found");
+        }
+        userId = userRecord[0].id; 
+        userName = userRecord[0].name;
         const userProfile = await db
             .select()
             .from(profile)
@@ -16,11 +31,10 @@ export const load: PageServerLoad = async ({ params }) => {
             .limit(1);
 
         if (userProfile.length === 0) {
-            return { error: "Profile not found" };
+            error(500, "Profile not found for the user");
         }
 
         const profileData = userProfile[0];
-
         const results = await Promise.allSettled([
             profileData.codeforcesHandle
                 ? fetch(`https://codeforces.com/api/user.info?handles=${profileData.codeforcesHandle}`).then(r => r.json())
@@ -105,22 +119,22 @@ export const load: PageServerLoad = async ({ params }) => {
             : Promise.resolve(null)
         ]);
 
-        const [codeforcesData, codeforcesRatings, codeforcesSubmissions, githubData, githubRepos, leetcodeData] = results.map(r =>
+        const [codeforcesData, codeforcesRatings, codeforcesSubmissions,  githubData, githubRepos, leetcodeData] = results.map(r =>
             r.status === "fulfilled" ? r.value : null
         );
 
         return {
             platformData: {
                 codeforces: codeforcesData as UserInfoResponse | null,
-                codeforcesSub: codeforcesSubmissions,
                 codeforcesRating: codeforcesRatings,
+                codeforcesSub: codeforcesSubmissions,
                 github: githubData as GitHubResponse | null,
                 githubRepos: githubRepos,
                 leetcode: leetcodeData ?? "No data",
                 codeforcesHandle: profileData.codeforcesHandle,
-                codechefHandle: profileData.codechefHandle,
                 leetCodeHandle: profileData.leetCodeHandle,
-                githubHandle: profileData.githubHandle
+                githubHandle: profileData.githubHandle,
+                userName: userName,
             },
             socialHandles: {
                 twitter: profileData.twitterHandle ?? null,
@@ -129,6 +143,6 @@ export const load: PageServerLoad = async ({ params }) => {
         };
     } catch (error) {
         console.error("Error fetching platform data:", error);
-        return { error: "Internal server error" };
+        throw error;
     }
 };
