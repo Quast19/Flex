@@ -6,7 +6,11 @@
 	import Progress from '$lib/components/ui/progress/progress.svelte';
 	let { data }: { data: PageData } = $props();
 	let userId = $state(data.session?.user.id);
-	let username = $state(data.session?.user.email.replace('@gmail.com', ''));
+	let username = $state(
+		data.session?.user.email && data.session?.user.email.includes('@gmail.com')
+			? data.session?.user.email.replace('@gmail.com', '')
+			: data.session?.user.id
+	);
 	let loading = $state(false);
 	let progress = $state(33);
 	let progressInterval: any;
