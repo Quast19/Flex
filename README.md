@@ -1,38 +1,29 @@
-# sv
+🚀 Flex — Developer Profile Builder
+Everything you need to build a clean, shareable programming portfolio — powered by sv and built with SvelteKit.
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+🔗 Live Project: https://flex-ruddy.vercel.app
+🎥 Demo Video: YouTube Link
 
-## Creating a project
+🧩 What It Does
+Allows users to aggregate their programming stats from:
 
-If you're seeing this, you've probably already done this step. Congrats!
+Codeforces
 
-```bash
-# create a new project in the current directory
-npx sv create
+LeetCode
 
-# create a new project in my-app
-npx sv create my-app
-```
+GitHub
 
-## Developing
+Users can input their usernames from each platform to generate a personalized, visually appealing profile card.
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Each profile is accessible via a unique link and can be shared with recruiters, friends, or on social media.
 
-```bash
-npm run dev
+✨ Features
+Google Sign-In with BetterAuth
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+Beautiful glassmorphism UI with responsive layout
 
-## Building
+Codeforces, LeetCode, GitHub stats with graphs & visuals
 
-To create a production version of your app:
+Shareable profile pages at /flex/youremail
 
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+Built using SvelteKit, TailwindCSS, Drizzle ORM, PostgreSQL
